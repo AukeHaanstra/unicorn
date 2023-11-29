@@ -161,7 +161,7 @@ flowchart LR
         end
 
     end
-    ServicePair --> H2/DB2
+    ServicePair --> H2
     classDef red stroke:#f00;
     class UnicornControllerTest red;
     class ColoringServiceTest red;
@@ -169,7 +169,7 @@ flowchart LR
     class LegTest red;
     classDef green stroke:#0f0
     class UnicornIT green;
-    class H2/DB2 green;
+    class H2 green;
 ```
 
 ### Klasse diagram testen-via-api
@@ -260,7 +260,7 @@ flowchart LR
     subgraph persistencelayer[Persistence-layer]
         direction TB
         InMemoryUnicornRepo -. dependency .-> UnicornRepo
-        H2/DB2 -. dependency .-> UnicornRepo
+        H2 -. dependency .-> UnicornRepo
     end
     ApiTest --> applayer
     weblayer --> applayer
@@ -270,7 +270,7 @@ flowchart LR
     classDef green stroke:#0f0;
     class ApiTest red;
     class UnicornIT green;
-    class H2/DB2 green;
+    class H2 green;
     class InMemoryUnicornRepo red;
     class ColoringApi red;
 ```
