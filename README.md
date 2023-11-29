@@ -5,6 +5,8 @@ an adapter pattern to decouple a bounded context. This application can readily b
 as is shown in the unicorn-hexagonal repository. Java modules can then be easily introduced as shown in the
 unicorn-modules repository.
 
+For example requests to the Web API, see UnicornAppRequests.postman_collection.json
+
 ## Sources
 
 - Get Your Hands Dirty on Clean Architecture, Tom Hombergs
