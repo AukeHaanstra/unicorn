@@ -7,7 +7,7 @@ import nl.pancompany.unicorn.application.unicorn.dto.LegDto;
 import nl.pancompany.unicorn.application.unicorn.dto.QueryLegDto;
 import nl.pancompany.unicorn.application.unicorn.dto.UpdateLegDto;
 import nl.pancompany.unicorn.application.unicorn.service.UnicornLegService;
-import nl.pancompany.unicorn.application.unicorn.service.UnicornNotFoundException;
+import nl.pancompany.unicorn.application.unicorn.exception.UnicornNotFoundException;
 import nl.pancompany.unicorn.web.controller.UnicornLegController;
 import nl.pancompany.unicorn.web.mapper.LegViewMapperImpl;
 import org.junit.jupiter.api.Test;

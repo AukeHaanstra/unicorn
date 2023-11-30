@@ -1,40 +1,35 @@
 package nl.pancompany.unicorn.application;
 
 import jakarta.validation.ConstraintViolationException;
+import nl.pancompany.unicorn.ApplicationTestContext;
 import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
+import nl.pancompany.unicorn.application.unicorn.domain.model.Color;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
 import nl.pancompany.unicorn.application.unicorn.dto.LegDto;
 import nl.pancompany.unicorn.application.unicorn.dto.QueryLegDto;
+import nl.pancompany.unicorn.application.unicorn.exception.UnicornNotFoundException;
 import nl.pancompany.unicorn.application.unicorn.service.UnicornLegService;
-import nl.pancompany.unicorn.application.unicorn.service.UnicornNotFoundException;
-import nl.pancompany.unicorn.application.unicorn.domain.model.Color;
 import nl.pancompany.unicorn.testbuilders.LegTestBuilder;
 import nl.pancompany.unicorn.testbuilders.UnicornTestBuilder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest
-@ActiveProfiles("test")
 public class GetLegTest {
 
-    @Autowired
     UnicornDao unicornDao;
-
-    @Autowired
     UnicornLegService unicornLegService;
-
     Unicorn savedUnicorn;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
+        ApplicationTestContext applicationTestContext = new ApplicationTestContext();
+        unicornDao = applicationTestContext.getUnicornDao();
+        unicornLegService = applicationTestContext.getUnicornLegService();
+
         Leg newLeg = new LegTestBuilder()
                 .legPosition(Leg.LegPosition.FRONT_LEFT)
                 .color(Color.GREEN)

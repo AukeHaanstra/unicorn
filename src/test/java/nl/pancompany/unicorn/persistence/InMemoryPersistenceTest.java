@@ -1,9 +1,13 @@
 package nl.pancompany.unicorn.persistence;
 
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import nl.pancompany.unicorn.context.persistence.InMemoryPersistenceContext;
+import org.junit.jupiter.api.BeforeEach;
 
-@SpringBootTest
-@ActiveProfiles("test")
 class InMemoryPersistenceTest extends PersistenceTest {
+
+    @BeforeEach
+    public void setup() {
+        InMemoryPersistenceContext inMemoryPersistenceContext = new InMemoryPersistenceContext();
+        unicornDao = inMemoryPersistenceContext.getUnicornDao();
+    }
 }

@@ -1,19 +1,16 @@
-package nl.pancompany.unicorn.financeadapter;
+package nl.pancompany.unicorn.application.adapter.financeadapter;
 
 import lombok.RequiredArgsConstructor;
 import nl.pancompany.unicorn.application.finance.dto.SalesDto;
 import nl.pancompany.unicorn.application.finance.service.SalesService;
-import nl.pancompany.unicorn.application.unicorn.adapter.FinancialHealthAdapter;
+import nl.pancompany.unicorn.application.unicorn.api.FinancialHealthApi;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
-import nl.pancompany.unicorn.application.unicorn.dto.FinancialHealthDto;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
-public class SalesToFinancialHealthAdapter implements FinancialHealthAdapter {
+public class FinancialHealthAdapter implements FinancialHealthApi {
 
     private final SalesService salesService;
-    private final SalesToFinancialHealthMapper mapper;
+    private final FinancialHealthMapper mapper;
 
     public FinancialHealthDto getFinancialHealth(Unicorn.UnicornId unicornId) {
         SalesDto salesDto = salesService.calculateTotalSales(unicornId);

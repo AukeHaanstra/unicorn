@@ -1,6 +1,8 @@
 package nl.pancompany.unicorn.web.controller;
 
-import nl.pancompany.unicorn.application.unicorn.service.UnicornNotFoundException;
+import jakarta.validation.ConstraintViolationException;
+import nl.pancompany.unicorn.application.unicorn.exception.UnicornAlreadyExistsException;
+import nl.pancompany.unicorn.application.unicorn.exception.UnicornNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +13,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ControllerExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UnicornNotFoundException.class)
-    public ResponseEntity<?> handleAccessDeniedException(Exception ex, WebRequest request) {
+    public ResponseEntity<?> handle(UnicornNotFoundException ex, WebRequest request) {
         return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(UnicornAlreadyExistsException.class)
+    public ResponseEntity<?> handle(UnicornAlreadyExistsException ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(new ErrorMessage("A unicorn with this identifier already exists."));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handle(ConstraintViolationException ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.toString()));
+    }
+
+    record ErrorMessage (String message) {
     }
 }

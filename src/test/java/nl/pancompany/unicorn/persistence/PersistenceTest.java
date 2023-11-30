@@ -4,7 +4,7 @@ import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn.UnicornId;
-import nl.pancompany.unicorn.application.unicorn.service.UnicornNotFoundException;
+import nl.pancompany.unicorn.application.unicorn.exception.UnicornNotFoundException;
 import nl.pancompany.unicorn.testbuilders.LegTestBuilder;
 import nl.pancompany.unicorn.testbuilders.UnicornTestBuilder;
 import org.junit.jupiter.api.Test;

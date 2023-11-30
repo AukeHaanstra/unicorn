@@ -7,9 +7,13 @@ import nl.pancompany.unicorn.persistence.database.model.UnicornJpaEntity;
 import nl.pancompany.unicorn.persistence.database.model.UnicornLegJpaEntity;
 import org.mapstruct.*;
 
+import static org.mapstruct.factory.Mappers.getMapper;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR,
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface UnicornJpaMapper {
+
+    UnicornJpaMapper INSTANCE = getMapper(UnicornJpaMapper.class);
 
     @Mapping(target = "unicornId", source = "unicornId", qualifiedByName = "mapUnicornId")
     Unicorn map(UnicornJpaEntity unicornJpaEntity);

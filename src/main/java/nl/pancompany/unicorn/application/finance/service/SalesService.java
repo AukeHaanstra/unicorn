@@ -6,13 +6,11 @@ import nl.pancompany.unicorn.application.finance.domain.model.Sale;
 import nl.pancompany.unicorn.application.finance.domain.model.Sale.SaleId;
 import nl.pancompany.unicorn.application.finance.dto.SalesDto;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn.UnicornId;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class SalesService {
 
     @Getter
