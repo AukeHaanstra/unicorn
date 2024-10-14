@@ -1,7 +1,7 @@
 package nl.pancompany.unicorn.application.adapter.financeadapter;
 
 
-import nl.pancompany.unicorn.application.finance.dto.SalesDto;
+import nl.pancompany.unicorn.application.finance.dto.TotalSalesDto;
 import nl.pancompany.unicorn.application.unicorn.api.FinancialHealthApi.FinancialHealthDto;
 import nl.pancompany.unicorn.application.unicorn.api.FinancialHealthApi.FinancialHealthDto.FinancialHealth;
 import org.mapstruct.Mapper;
@@ -18,7 +18,7 @@ public interface FinancialHealthMapper {
     FinancialHealthMapper INSTANCE = getMapper(FinancialHealthMapper.class);
 
     @Mapping(target = "financialHealth", source="salesTotal", qualifiedByName = "calculateFinancialHealth")
-    FinancialHealthDto toFinancialHealthDto(SalesDto salesDto);
+    FinancialHealthDto toFinancialHealthDto(TotalSalesDto totalSalesDto);
 
     @Named("calculateFinancialHealth")
     default FinancialHealth calculateFinancialHealth(long salesTotal) {

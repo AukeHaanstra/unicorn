@@ -4,7 +4,7 @@ import lombok.Getter;
 import nl.pancompany.unicorn.application.finance.domain.model.Customer.CustomerId;
 import nl.pancompany.unicorn.application.finance.domain.model.Sale;
 import nl.pancompany.unicorn.application.finance.domain.model.Sale.SaleId;
-import nl.pancompany.unicorn.application.finance.dto.SalesDto;
+import nl.pancompany.unicorn.application.finance.dto.TotalSalesDto;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn.UnicornId;
 
 import java.time.LocalDateTime;
@@ -25,11 +25,11 @@ public class SalesService {
         }
     }
 
-    public SalesDto calculateTotalSales(UnicornId unicornId) {
+    public TotalSalesDto calculateTotalSales(UnicornId unicornId) {
         long total = sales.stream()
                 .filter(sale -> sale.unicornId().equals(unicornId))
                 .mapToLong(Sale::price)
                 .sum();
-        return new SalesDto(unicornId, total);
+        return new TotalSalesDto(unicornId, total);
     }
 }
