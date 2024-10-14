@@ -1,6 +1,5 @@
 package nl.pancompany.unicorn.application.unicorn.service;
 
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.pancompany.unicorn.application.unicorn.dao.Dao;

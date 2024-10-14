@@ -52,4 +52,10 @@ public class DatabaseUnicornDao implements UnicornDao {
     public long count() {
         return unicornRepo.count();
     }
+
+    private static void requireNonNull(Object object) {
+        if (object == null) {
+            throw new IllegalArgumentException("null");
+        }
+    }
 }

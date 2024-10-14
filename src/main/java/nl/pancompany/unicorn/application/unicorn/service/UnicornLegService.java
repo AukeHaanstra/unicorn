@@ -1,7 +1,6 @@
 package nl.pancompany.unicorn.application.unicorn.service;
 
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.pancompany.unicorn.application.unicorn.dao.Dao;
@@ -12,8 +11,6 @@ import nl.pancompany.unicorn.application.unicorn.dto.QueryLegDto;
 import nl.pancompany.unicorn.application.unicorn.dto.UpdateLegDto;
 import nl.pancompany.unicorn.application.unicorn.exception.UnicornNotFoundException;
 import nl.pancompany.unicorn.application.unicorn.mapper.LegDtoMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import static nl.pancompany.unicorn.common.ConstraintValidator.validate;
 

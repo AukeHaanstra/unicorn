@@ -69,4 +69,10 @@ public class InMemoryUnicornDao implements UnicornDao {
     private Unicorn safeCopy(Unicorn source) {
         return unicornJpaMapper.map(unicornJpaMapper.map(source));
     }
+
+    private static void requireNonNull(Object object) {
+        if (object == null) {
+            throw new IllegalArgumentException("null");
+        }
+    }
 }
