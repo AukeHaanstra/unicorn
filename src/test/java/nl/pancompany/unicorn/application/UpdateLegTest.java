@@ -2,7 +2,7 @@ package nl.pancompany.unicorn.application;
 
 import jakarta.validation.ConstraintViolationException;
 import nl.pancompany.unicorn.ApplicationTestContext;
-import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
+import nl.pancompany.unicorn.application.unicorn.repository.UnicornRepository;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Color;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
@@ -22,14 +22,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class UpdateLegTest {
 
     static final String NIL_UUID = "00000000-0000-0000-0000-000000000000";
-    UnicornDao unicornDao;
+    UnicornRepository unicornRepository;
     UnicornLegService unicornLegService;
     Unicorn savedUnicorn;
 
     @BeforeEach
     public void setup() {
         ApplicationTestContext applicationTestContext = new ApplicationTestContext();
-        unicornDao = applicationTestContext.getUnicornDao();
+        unicornRepository = applicationTestContext.getUnicornRepository();
         unicornLegService = applicationTestContext.getUnicornLegService();
 
         Leg newLeg = new LegTestBuilder()
@@ -37,7 +37,7 @@ public class UpdateLegTest {
                 .color(Color.GREEN)
                 .legSize(Leg.LegSize.SMALL)
                 .build();
-        savedUnicorn = unicornDao.add(new UnicornTestBuilder()
+        savedUnicorn = unicornRepository.add(new UnicornTestBuilder()
                 .defaults()
                 .withLeg(newLeg)
                 .build());
@@ -48,7 +48,7 @@ public class UpdateLegTest {
         var updateLegDto = new UpdateLegDto(savedUnicorn.getUnicornId(), Leg.LegPosition.FRONT_LEFT, Color.RED, Leg.LegSize.SMALL);
         unicornLegService.updateLeg(updateLegDto);
 
-        Unicorn updatedUnicorn = unicornDao.find(savedUnicorn.getUnicornId());
+        Unicorn updatedUnicorn = unicornRepository.find(savedUnicorn.getUnicornId());
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getColor()).isEqualTo(Color.RED);
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getLegSize()).isEqualTo(Leg.LegSize.SMALL);
     }
@@ -61,7 +61,7 @@ public class UpdateLegTest {
                 .color(Color.GREEN)
                 .legSize(Leg.LegSize.SMALL)
                 .build();
-        unicornDao.add(new UnicornTestBuilder()
+        unicornRepository.add(new UnicornTestBuilder()
                 .defaults()
                 .unicornId(Unicorn.UnicornId.of(uuidUppercase))
                 .withLeg(newLeg)
@@ -69,7 +69,7 @@ public class UpdateLegTest {
         var updateLegDto = new UpdateLegDto(Unicorn.UnicornId.of(uuidUppercase.toLowerCase()), Leg.LegPosition.FRONT_LEFT, Color.RED, Leg.LegSize.SMALL);
         unicornLegService.updateLeg(updateLegDto);
 
-        Unicorn updatedUnicorn = unicornDao.find(Unicorn.UnicornId.of(uuidUppercase));
+        Unicorn updatedUnicorn = unicornRepository.find(Unicorn.UnicornId.of(uuidUppercase));
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getColor()).isEqualTo(Color.RED);
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getLegSize()).isEqualTo(Leg.LegSize.SMALL);
     }
@@ -82,7 +82,7 @@ public class UpdateLegTest {
                 .color(Color.GREEN)
                 .legSize(Leg.LegSize.SMALL)
                 .build();
-        unicornDao.add(new UnicornTestBuilder()
+        unicornRepository.add(new UnicornTestBuilder()
                 .defaults()
                 .unicornId(Unicorn.UnicornId.of(uuidLowerCase))
                 .withLeg(newLeg)
@@ -90,7 +90,7 @@ public class UpdateLegTest {
         var updateLegDto = new UpdateLegDto(Unicorn.UnicornId.of(uuidLowerCase.toUpperCase()), Leg.LegPosition.FRONT_LEFT, Color.RED, Leg.LegSize.SMALL);
         unicornLegService.updateLeg(updateLegDto);
 
-        Unicorn updatedUnicorn = unicornDao.find(Unicorn.UnicornId.of(uuidLowerCase));
+        Unicorn updatedUnicorn = unicornRepository.find(Unicorn.UnicornId.of(uuidLowerCase));
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getColor()).isEqualTo(Color.RED);
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getLegSize()).isEqualTo(Leg.LegSize.SMALL);
     }
@@ -100,7 +100,7 @@ public class UpdateLegTest {
         var updateLegDto = new UpdateLegDto(savedUnicorn.getUnicornId(), Leg.LegPosition.FRONT_LEFT, Color.GREEN, Leg.LegSize.LARGE);
         unicornLegService.updateLeg(updateLegDto);
 
-        Unicorn updatedUnicorn = unicornDao.find(savedUnicorn.getUnicornId());
+        Unicorn updatedUnicorn = unicornRepository.find(savedUnicorn.getUnicornId());
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getColor()).isEqualTo(Color.GREEN);
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getLegSize()).isEqualTo(Leg.LegSize.LARGE);
     }
@@ -111,7 +111,7 @@ public class UpdateLegTest {
 
         unicornLegService.updateLeg(updateLegDto);
 
-        Unicorn updatedUnicorn = unicornDao.find(savedUnicorn.getUnicornId());
+        Unicorn updatedUnicorn = unicornRepository.find(savedUnicorn.getUnicornId());
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getColor()).isEqualTo(Color.RED);
         assertThat(updatedUnicorn.getLeg(Leg.LegPosition.FRONT_LEFT).getLegSize()).isEqualTo(Leg.LegSize.LARGE);
     }

@@ -8,6 +8,6 @@ class InMemoryPersistenceTest extends PersistenceTest {
     @BeforeEach
     public void setup() {
         InMemoryPersistenceContext inMemoryPersistenceContext = new InMemoryPersistenceContext();
-        unicornDao = inMemoryPersistenceContext.getUnicornDao();
+        unicornRepository = inMemoryPersistenceContext.getUnicornRepository();
     }
 }

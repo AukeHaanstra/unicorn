@@ -1,4 +1,4 @@
-package nl.pancompany.unicorn.persistence.database.dao;
+package nl.pancompany.unicorn.persistence.database;
 
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;

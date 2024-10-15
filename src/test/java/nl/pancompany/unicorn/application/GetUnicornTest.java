@@ -2,7 +2,7 @@ package nl.pancompany.unicorn.application;
 
 import nl.pancompany.unicorn.ApplicationTestContext;
 import nl.pancompany.unicorn.application.unicorn.api.FinancialHealthApi;
-import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
+import nl.pancompany.unicorn.application.unicorn.repository.UnicornRepository;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn.UnicornId;
@@ -20,17 +20,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class GetUnicornTest {
 
-    UnicornDao unicornDao;
+    UnicornRepository unicornRepository;
     UnicornService unicornService;
     Unicorn savedUnicorn;
 
     @BeforeEach
     public void setup() {
         ApplicationTestContext applicationTestContext = new ApplicationTestContext();
-        unicornDao = applicationTestContext.getUnicornDao();
+        unicornRepository = applicationTestContext.getUnicornRepository();
         unicornService = applicationTestContext.getUnicornService();
 
-        savedUnicorn = unicornDao.add(new UnicornTestBuilder().defaults().build());
+        savedUnicorn = unicornRepository.add(new UnicornTestBuilder().defaults().build());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GetUnicornTest {
 
     @Test
     void findUnicornHealth() {
-        unicornDao.add(new UnicornTestBuilder().healthyDefaults().unicornId(UnicornId.of("ffffffff-ffff-ffff-ffff-ffffffffffff")).build());
+        unicornRepository.add(new UnicornTestBuilder().healthyDefaults().unicornId(UnicornId.of("ffffffff-ffff-ffff-ffff-ffffffffffff")).build());
         UnicornDto unicornDto = unicornService.getUnicorn(UnicornId.of("ffffffff-ffff-ffff-ffff-ffffffffffff"));
         assertThat(unicornDto.health().getFinancialHealth()).isEqualTo(FinancialHealthApi.FinancialHealthDto.FinancialHealth.SUFFICIENT);
         assertThat(unicornDto.health().getPhysicalHealth()).isEqualTo(Unicorn.PhysicalHealth.MODERATE);

@@ -1,6 +1,6 @@
 package nl.pancompany.unicorn.application.unicorn.service;
 
-import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
+import nl.pancompany.unicorn.application.unicorn.repository.UnicornRepository;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
 import nl.pancompany.unicorn.application.unicorn.dto.LegDto;
@@ -21,28 +21,28 @@ import static org.mockito.Mockito.*;
 public class UnicornLegServiceTest {
 
     UnicornLegService unicornLegService;
-    UnicornDao unicornDao;
+    UnicornRepository unicornRepository;
     LegDtoMapper legDtoMapper;
 
     @BeforeEach
     public void setup() {
-        unicornDao = mock(UnicornDao.class);
+        unicornRepository = mock(UnicornRepository.class);
         legDtoMapper = mock(LegDtoMapper.class);
-        unicornLegService = new UnicornLegService(unicornDao, legDtoMapper);
+        unicornLegService = new UnicornLegService(unicornRepository, legDtoMapper);
     }
 
     @Test
     public void canGetLeg() {
         var unicornId = Unicorn.UnicornId.generate();
         Unicorn unicorn = new UnicornTestBuilder().defaults().unicornId(unicornId).build();
-        when(unicornDao.find(unicornId)).thenReturn(unicorn);
+        when(unicornRepository.find(unicornId)).thenReturn(unicorn);
         var legDto = new LegDto(Leg.LegPosition.FRONT_LEFT, Color.CYAN, Leg.LegSize.SMALL);
         when(legDtoMapper.map(new Leg(Leg.LegPosition.FRONT_LEFT, Color.CYAN, Leg.LegSize.SMALL))).thenReturn(legDto);
         var queryLegDto = new QueryLegDto(unicornId, Leg.LegPosition.FRONT_LEFT);
 
         LegDto returnedLegDto = unicornLegService.getLeg(queryLegDto);
 
-        verify(unicornDao).find(unicornId);
+        verify(unicornRepository).find(unicornId);
         assertThat(returnedLegDto).isEqualTo(legDto);
     }
 
@@ -51,10 +51,10 @@ public class UnicornLegServiceTest {
         var unicornId = Unicorn.UnicornId.generate();
         Unicorn unicorn = new UnicornTestBuilder().defaults().unicornId(unicornId)
                 .withLeg(new Leg(Leg.LegPosition.FRONT_LEFT, Color.PURPLE, Leg.LegSize.SMALL)).build();
-        when(unicornDao.find(unicornId)).thenReturn(unicorn);
+        when(unicornRepository.find(unicornId)).thenReturn(unicorn);
         Unicorn patchedUnicorn = new UnicornTestBuilder().defaults().unicornId(unicornId)
                 .withLeg(new Leg(Leg.LegPosition.FRONT_LEFT, Color.AUBURN, Leg.LegSize.SMALL)).build();
-        when(unicornDao.update(patchedUnicorn)).thenReturn(patchedUnicorn);
+        when(unicornRepository.update(patchedUnicorn)).thenReturn(patchedUnicorn);
         when(legDtoMapper.map(new Leg(Leg.LegPosition.FRONT_LEFT, Color.AUBURN, Leg.LegSize.SMALL)))
                 .thenReturn(new LegDto(Leg.LegPosition.FRONT_LEFT, Color.AUBURN, Leg.LegSize.SMALL));
         var updateLegDto = new UpdateLegDto(unicornId, Leg.LegPosition.FRONT_LEFT, Color.AUBURN, Leg.LegSize.SMALL);

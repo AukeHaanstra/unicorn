@@ -2,7 +2,7 @@ package nl.pancompany.unicorn.application;
 
 import jakarta.validation.ConstraintViolationException;
 import nl.pancompany.unicorn.ApplicationTestContext;
-import nl.pancompany.unicorn.application.unicorn.dao.UnicornDao;
+import nl.pancompany.unicorn.application.unicorn.repository.UnicornRepository;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Color;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Leg;
 import nl.pancompany.unicorn.application.unicorn.domain.model.Unicorn;
@@ -20,14 +20,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class GetLegTest {
 
-    UnicornDao unicornDao;
+    UnicornRepository unicornRepository;
     UnicornLegService unicornLegService;
     Unicorn savedUnicorn;
 
     @BeforeEach
     void setup() {
         ApplicationTestContext applicationTestContext = new ApplicationTestContext();
-        unicornDao = applicationTestContext.getUnicornDao();
+        unicornRepository = applicationTestContext.getUnicornRepository();
         unicornLegService = applicationTestContext.getUnicornLegService();
 
         Leg newLeg = new LegTestBuilder()
@@ -35,7 +35,7 @@ public class GetLegTest {
                 .color(Color.GREEN)
                 .legSize(Leg.LegSize.SMALL)
                 .build();
-        savedUnicorn = unicornDao.add(new UnicornTestBuilder()
+        savedUnicorn = unicornRepository.add(new UnicornTestBuilder()
                 .defaults()
                 .withLeg(newLeg)
                 .build());
