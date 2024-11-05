@@ -23,7 +23,7 @@ public class UnicornController {
     private final UnicornViewMapper unicornViewMapper;
 
     @GetMapping
-    public ResponseEntity<UnicornView> getLeg(@PathVariable("unicornId") String unicornId) {
+    public ResponseEntity<UnicornView> getUnicorn(@PathVariable("unicornId") String unicornId) {
         UnicornDto unicorn = unicornService.getUnicorn(Unicorn.UnicornId.of(unicornId));
         return ResponseEntity.ok(unicornViewMapper.map(unicorn));
     }

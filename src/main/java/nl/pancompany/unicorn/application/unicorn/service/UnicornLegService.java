@@ -36,7 +36,7 @@ public class UnicornLegService {
         return legDtoMapper.map(updatedUnicorn.getLeg(updateLegDto.legPosition()));
     }
 
-    public void updateLeg(Unicorn unicorn, UpdateLegDto updateLegDto) {
+    private void updateLeg(Unicorn unicorn, UpdateLegDto updateLegDto) {
         unicorn.setLegColor(updateLegDto.legPosition(), updateLegDto.color());
         unicorn.setLegSize(updateLegDto.legPosition(), updateLegDto.legSize());
     }
